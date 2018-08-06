@@ -26,7 +26,11 @@
 		<property name="password" value="mpbadm123"></property>
 
 	</bean>
-
+	
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
 
 	<bean id="TdSystemLogMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="mybatis.mappers.TdSystemLogMapper" />
