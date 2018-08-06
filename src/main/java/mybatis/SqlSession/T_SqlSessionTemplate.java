@@ -8,7 +8,10 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +21,9 @@ import mybatis.mappers.TdSystemLogMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
+@Component
 public class T_SqlSessionTemplate {
+	Logger logger = LoggerFactory.getLogger(T_SqlSessionTemplate.class);
 	@Autowired
 	public TdSystemLogMapper tdSystemLogMapper;
 
@@ -29,7 +34,6 @@ public class T_SqlSessionTemplate {
 	@Transactional
 	public void temp() throws Exception {
 		TdSystemLog t = tdSystemLogMapper.selectByPrimaryKey("1212");
-		System.out.println(t.getUpdate());
 	}
 
 	@Test
