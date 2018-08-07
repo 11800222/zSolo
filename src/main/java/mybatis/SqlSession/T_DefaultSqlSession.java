@@ -96,7 +96,7 @@ public class T_DefaultSqlSession {
 		session.update("mybatis.mappers.TdSystemLogMapper.updateNotNullByPrimaryKey", new TdSystemLog("1212", String.valueOf(new Date().getTime())));
 		System.out.println("—————————————————————————————————————————————————————————————————————————————————————————————————————————————————");
 		session.commit();
-
+		session.close();
 		return session;
 	}
 

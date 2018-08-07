@@ -40,6 +40,9 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
+	
+	<bean id="Transactional_Method" class="mybatis.SqlSession.Transactional_Method"> 
+	</bean>
 </beans>
 	
 	
