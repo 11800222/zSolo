@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import mybatis.mappers.TdSystemLog;
 import mybatis.mappers.TdSystemLogMapper;
@@ -24,6 +25,7 @@ public class T_SqlSessionTemplate {
 	@Test
 	public void temp() throws Exception {
 		transactional_Method.Query();
+
 	}
 
 	public static void simpleQuery() throws Exception {
@@ -34,7 +36,7 @@ public class T_SqlSessionTemplate {
 	public void Create_Use_Commit_close() throws Exception {
 		simpleQuery();
 		simpleQuery();
-		simpleQuery();//一共消耗三个DefaultSqlSession
+		simpleQuery();//一共开闭三个DefaultSqlSession
 	}
 
 	@Test
@@ -70,6 +72,14 @@ public class T_SqlSessionTemplate {
 	@Autowired
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		T_SqlSessionTemplate.sqlSessionTemplate = sqlSessionTemplate;
+	}
+
+}
+
+class Transactional_Method {
+	@Transactional
+	public void Query() throws Exception {
+		T_SqlSessionTemplate.tdSystemLogMapper.selectByPrimaryKey("1212");
 	}
 
 }
