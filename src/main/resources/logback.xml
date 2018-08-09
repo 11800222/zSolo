@@ -18,6 +18,7 @@
 	</root>
 	<!-- T_SqlSessionTemplate log配置  -->
 	<logger name="org.mybatis.spring" additivity="true" level="DEBUG" /> 
+	<logger name="org.springframework.transaction" additivity="true" level="warn" /> 
 	<logger name="org.springframework.jdbc" additivity="true" level="warn" />  
 	<logger name="org.apache.ibatis" additivity="true" level="warn" />  
 </configuration>
