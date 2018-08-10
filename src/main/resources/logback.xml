@@ -17,6 +17,7 @@
 		<appender-ref ref="STDOUT" />
 	</root>
 	<!-- T_SqlSessionTemplate log配置  -->
+	<logger name="mybatis.SqlSession" additivity="true" level="DEBUG" /> 
 	<logger name="org.mybatis.spring" additivity="true" level="DEBUG" /> 
 	<logger name="org.springframework.transaction" additivity="true" level="warn" /> 
 	<logger name="org.springframework.jdbc" additivity="true" level="warn" />  
