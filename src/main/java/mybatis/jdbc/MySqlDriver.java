@@ -55,6 +55,7 @@ public class MySqlDriver {
 
 		Thread.sleep(1000);
 		AnotherSessionUpdateAndCommmit();//提交，结果到数据库里看
+		//		AnotherSessionUpdateWithoutCommmit();//不提交，结果到数据库里看
 		Thread.sleep(1000);
 
 		QueryUseThis(conn);
@@ -92,8 +93,8 @@ public class MySqlDriver {
 		conn.rollback();
 	}
 
-	//	public static String Remotedburl = ("jdbc:mysql://192.168.0.180:5433/mpbm?user=mpbadm&password=mpbadm123");
-	public static String Remotedburl = ("jdbc:mysql://uncledrew11.u1.luyouxia.net:57310/mpbm?user=mpbadm&password=mpbadm123");
+	public static String Remotedburl = ("jdbc:mysql://192.168.0.180:5433/mpbmd?user=mpbmd&password=mpbmd123");
+	//	public static String Remotedburl = ("jdbc:mysql://uncledrew11.u1.luyouxia.net:57310/mpbm?user=mpbadm&password=mpbadm123");
 
 	@BeforeClass
 	public static void loadDriver() throws Exception {

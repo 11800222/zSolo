@@ -23,6 +23,7 @@ import util.ObjectUtil;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class T_DefaultSqlSession {
+
 	@Test
 	public void temp() throws Exception {
 		AnotherSessionUpdateAndCommmit();
@@ -31,16 +32,21 @@ public class T_DefaultSqlSession {
 
 	@Test
 	public void ThreadUnsafe() throws Exception {
-		SqlSession session = sqlSessionFactory.openSession();
+		final SqlSession session = sqlSessionFactory.openSession();
 		final TdSystemLogMapper mapper = session.getMapper(TdSystemLogMapper.class);
 
 		ExecutorService e = Executors.newCachedThreadPool();
-		for (int i = 0; i < 20; ++i) {
+		for (int i = 0; i < 1; ++i) {
 			e.execute(new Runnable() {
 				@Override
 				public void run() {
-					TdSystemLog t = mapper.selectByPrimaryKey("1212");
-					System.out.println(t.getUpdate());
+					try {
+						QueryUseThis(session);
+						//						TdSystemLog t = mapper.selectByPrimaryKey("1212");  mapper
+						//						System.out.println(t.getUpdate());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}
@@ -52,28 +58,26 @@ public class T_DefaultSqlSession {
 	@Test
 	public void LocalCacheCoverTxLevle() throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
-		final TdSystemLogMapper mapper = session.getMapper(TdSystemLogMapper.class);
+		session.getConnection().setTransactionIsolation(2);//Read Commited
 
-		ExecutorService e = Executors.newCachedThreadPool();
-		for (int i = 0; i < 20; ++i) {
-			e.execute(new Runnable() {
-				@Override
-				public void run() {
-					TdSystemLog t = mapper.selectByPrimaryKey("1212");
-					System.out.println(t.getUpdate());
-				}
-			});
-		}
+		QueryUseThis(session);
+
+		Thread.sleep(1000);
+		AnotherSessionUpdateAndCommmit();
+		Thread.sleep(1000);
+
+		QueryUseThis(session);
+		session.commit();
 	}
 
 	@Test
-	public void CommitUpdateClearlocalCache() throws Exception {
+	public void localCacheClearByUpdate() throws Exception {
 		SqlSession session = sqlSessionFactory.openSession();
 		session.getConnection().setTransactionIsolation(2);
 
 		QueryUseThis(session);
 
-		//	session.commit();
+		//并不是update缓存的数据行，但缓存仍然被clear
 		session.update("mybatis.mappers.TdSystemLogMapper.updateNotNullByPrimaryKey", new TdSystemLog("12", String.valueOf(new Date().getTime())));//insert、delete都是走的update
 
 		Thread.sleep(1000);

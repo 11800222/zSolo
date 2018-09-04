@@ -102,7 +102,12 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>1.7.0</version>
 		</dependency>
-
+		<!-- Fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.29</version>
+		</dependency>
 
 	</dependencies>
 </project>
