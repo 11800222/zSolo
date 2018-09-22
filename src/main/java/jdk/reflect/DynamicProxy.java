@@ -44,6 +44,12 @@ class Proxyer implements InvocationHandler {
 		}
 		return null;
 	}
+
+	//this调用导致aop失效
+	public void thisInvoke() throws Throwable {
+		invoke(null, null, null);
+		this.invoke(null, null, null); //同上
+	}
 }
 
 class BeingProxyed implements jdkProxyNeedInterface {

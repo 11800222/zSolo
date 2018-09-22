@@ -16,8 +16,8 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://192.168.0.180:5433/mpbm"></property>
 		<!-- <property name="url" value="jdbc:mysql://127.0.0.1:3306/mpbm"></property> -->
-		<property name="username" value="mpbadm"></property>
-		<property name="password" value="mpbadm123"></property>
+		<property name="username" value="mpbmd"></property>
+		<property name="password" value="mpbmd123"></property>
 
 	</bean>
 
@@ -39,13 +39,27 @@
 		<property name="mapperInterface" value="mybatis.mappers.TdSystemLogMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-
-
-
 	<bean id="Transactional_Method" class="mybatis.SqlSession.Transactional_Method">
 	</bean>
 	<bean id="Another_Transactional_Method" class="mybatis.SqlSession.Another_Transactional_Method">
+	</bean> 
+	
+	<bean id="TestBean1" class="spring.IoC" lazy-init="true" > 
+	    <property name="ioC" ref="TestBean2" /> 
 	</bean>
+	
+	<bean id="TestBean2" class="spring.IoC" lazy-init="true" > 
+	    <property name="ioC" ref="TestBean1" /> 
+	</bean>
+	
+	<bean id="TestBean3" class="spring.IoC" lazy-init="true" scope="prototype" > 
+	    <property name="ioC" ref="TestBean4" /> 
+	</bean>
+	
+	<bean id="TestBean4" class="spring.IoC" lazy-init="true" scope="prototype" > 
+	    <property name="ioC" ref="TestBean3" /> 
+	</bean>
+	
 </beans>
 	
 	

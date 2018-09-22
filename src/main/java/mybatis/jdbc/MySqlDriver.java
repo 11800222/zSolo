@@ -18,10 +18,9 @@ import util.ObjectUtil;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class MySqlDriver {
+
 	@Test
 	public void temp() throws Exception {
-		AnotherSessionUpdateAndCommmit();
-		//	AnotherSessionUpdateWithoutCommmit();
 
 	}
 
