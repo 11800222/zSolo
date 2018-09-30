@@ -38,7 +38,7 @@ class Proxyer implements InvocationHandler {
 			System.out.println("——————————before doing Whatever——————————");
 			method.invoke(beingProxyed, args); //beingProxyed.method(args);
 			System.out.println("——————————after doing Whatever——————————");
-			//	advice.after();
+			//	advice.after(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

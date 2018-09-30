@@ -1,6 +1,7 @@
 package jdk.modifier;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /*  Difference between class and type？
  *       A class is a type. An interface is a type. A primitive is a type. An array is a type.Therefore, every type is also
@@ -15,6 +16,27 @@ public class Generics<E> {
 
 	public static void main(String wdw[]) {
 
+	}
+
+	//泛型对象间赋值
+	public static void temp() {
+		//关于new。。。
+		Generics o = new Generics<?>();
+		Generics o2 = new Generics<? extends Object>(); // 不是类型不匹配，而是不能new <？>()
+		Generics extend = new Generics<Father>(); //只能new <certain>()
+
+		Generics<? super Collection> super1 = new Generics();
+		Generics<Collection> Collection = new Generics();
+		Generics<? extends Collection> extends1 = new Generics();
+
+		super1 = Collection;
+		extends1 = Collection; //符合符号的意思
+
+		Generics<Father> just_Father = new Generics<>();
+		Generics<Son> just_Son = new Generics<>();
+
+		just_Son = just_Father;
+		just_Father = just_Son; // 严格匹配，即使其中的泛型类型是继承关系（Father、Son）也不能传递，为了解决这个，推出了通配符（？）
 	}
 
 	//不指定类型；
@@ -40,8 +62,7 @@ public class Generics<E> {
 		Object o = just_Father.E_return();
 		Grandfather g = just_Father.E_return();
 		Father f = just_Father.E_return();//泛型方法入参和返回值：简单用泛型类型（Father）代替；
-		just_Son = just_Father;
-		just_Father = just_Son; //泛型对象间赋值：严格匹配，即使其中的泛型类型是继承关系（Father、Son）也不能传递，为了解决这个，推出了通配符（？）
+
 	}
 
 	//通配符？与extends；严进宽出 

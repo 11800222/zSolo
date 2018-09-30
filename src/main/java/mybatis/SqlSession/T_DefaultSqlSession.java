@@ -27,7 +27,7 @@ public class T_DefaultSqlSession {
 	@Test
 	public void temp() throws Exception {
 		AnotherSessionUpdateAndCommmit();
-		//	AnotherSessionUpdateWithoutCommmit();
+
 	}
 
 	@Test

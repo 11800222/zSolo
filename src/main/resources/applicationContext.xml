@@ -42,24 +42,55 @@
 	<bean id="Transactional_Method" class="mybatis.SqlSession.Transactional_Method">
 	</bean>
 	<bean id="Another_Transactional_Method" class="mybatis.SqlSession.Another_Transactional_Method">
-	</bean> 
-	
-	<bean id="TestBean1" class="spring.IoC" lazy-init="true" > 
-	    <property name="ioC" ref="TestBean2" /> 
+	</bean>
+
+	<!-- Ioc测试Bean -->
+	<bean id="RaWAopBean1" class="spring.Aop" lazy-init="true">
+	      <property name="AopAopProperty" ref="RaWAopBean2" />
 	</bean>
 	
-	<bean id="TestBean2" class="spring.IoC" lazy-init="true" > 
-	    <property name="ioC" ref="TestBean1" /> 
+	<bean id="RaWAopBean2" class="spring.Aop" lazy-init="true">
+	      <property name="AopAopProperty" ref="RaWAopBean1" /> 
 	</bean>
-	
-	<bean id="TestBean3" class="spring.IoC" lazy-init="true" scope="prototype" > 
-	    <property name="ioC" ref="TestBean4" /> 
+ 
+	<bean id="RaWBean1" class="spring.IoC">   <!-- 不是真的RawBean，因为这里所有IoC类	bean被AOP代理 -->
 	</bean>
-	
-	<bean id="TestBean4" class="spring.IoC" lazy-init="true" scope="prototype" > 
-	    <property name="ioC" ref="TestBean3" /> 
+
+	<bean id="RawBean2" class="spring.Aop">
 	</bean>
-	
+
+	<!-- 构造器循环依赖 -->
+	<!-- <bean id="TestBean5" class="spring.IoC" > <constructor-arg index="0" ref="TestBean6" /> </bean> -->
+
+	<!-- <bean id="TestBean6" class="spring.IoC" > <constructor-arg index="0" ref="TestBean5" /> </bean> -->
+
+	<!-- prototype的setter循环依赖 -->
+	<bean id="prototypeBean1" class="spring.IoC" lazy-init="true" scope="prototype">
+		<property name="ioC" ref="prototypeBean2" />
+	</bean>
+
+	<bean id="prototypeBean2" class="spring.IoC" lazy-init="true" scope="prototype">
+		<property name="ioC" ref="prototypeBean1" />
+	</bean>
+
+	<bean id="AopBean" class="spring.IoC" lazy-init="true">
+		<!-- AOP会将RawBean1代理，注入Ioc类型会报错，注入接口类型AopInterface才不会出错 -->
+		<!-- <property name="ioc" ref="RawBean1" /> -->
+		<property name="aopInterface" ref="RawBean1" />
+	</bean>
+
+
+	<aop:config proxy-target-class="true">
+		<!-- 定义切点函数 -->
+		<aop:pointcut id="pointcut" expression="execution(* spring.IoC.sayhello(..))" />
+
+		<!-- 定义通知 -->
+		<aop:aspect ref="RawBean2" order="0">
+
+			<aop:before method="Advice" pointcut-ref="pointcut" />
+
+		</aop:aspect>
+	</aop:config>
 </beans>
 	
 	

@@ -13,7 +13,7 @@
 	 
 
 	<!-- 日志输出级别 -->
-	<root level="warn">
+	<root level="debug">
 		<appender-ref ref="STDOUT" />
 	</root>
 	<!-- T_SqlSessionTemplate log配置  -->

@@ -14,9 +14,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
-public class IoC implements ApplicationContextAware {
+public class IoC implements ApplicationContextAware, AopInterface {
 	static ApplicationContext context;
-	public IoC ioC;
+	public IoC ioc;
+	public AopInterface aopInterface;
+	public Aop aop;
 
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		context = applicationContext;
@@ -50,24 +52,55 @@ public class IoC implements ApplicationContextAware {
 	@Test
 	public void ConcurrencyGetBean() {
 		try {
-			Object obj = context.getBean("TestBean3");
+			Object obj = context.getBean("RaWAopBean1");
 			System.out.println(obj.getClass());
 
 			/*	Object obj2 = context.getBean("TestBean3");
 				System.out.println(obj.getClass());*/
+
 		} catch (BeansException e) {
 
 			e.printStackTrace();
 		}
 	}
 
-	public IoC getIoC() {
-
-		return ioC;
+	@Test
+	public void Aop() {
+		AopInterface ioc = context.getBean("AopBean", AopInterface.class);
+		ioc.sayhello();
 	}
 
-	public void setIoC(IoC ioC) {
-		this.ioC = ioC;
+	@Test
+	public void prototype_Circle() {
+		Object obj = context.getBean("prototypeBean1");
+	}
+
+	public void sayhello() {
+		System.out.println("hello");
+	}
+
+	public Aop getAop() {
+		return aop;
+	}
+
+	public void setAop(Aop aop) {
+		this.aop = aop;
+	}
+
+	public IoC getIoc() {
+		return ioc;
+	}
+
+	public void setIoc(IoC ioc) {
+		this.ioc = ioc;
+	}
+
+	public AopInterface getAopInterface() {
+		return aopInterface;
+	}
+
+	public void setAopInterface(AopInterface aopInterface) {
+		this.aopInterface = aopInterface;
 	}
 
 }
