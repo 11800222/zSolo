@@ -2,7 +2,7 @@ package jdk.lang;
 
 public class T_String {
 	public static void main(String ad[]) {
-		Integer i = 1;
+		Integer i = 1; //-128 and 127 (inclusive) as required by JLS.缓存的数值范围为8位二进制
 		Integer i2 = 1;
 		System.out.println(i == i2);
 

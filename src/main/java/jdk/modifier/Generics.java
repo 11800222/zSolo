@@ -13,7 +13,7 @@ import java.util.Collection;
 //来避免使用cast，减少运行期异常。
 //	(Generics<?> == Generics<? extends Object>)
 public class Generics<E> {
-
+/*
 	public static void main(String wdw[]) {
 
 	}
@@ -95,7 +95,7 @@ public class Generics<E> {
 		Son s1 = supers.E_return();//泛型方法返回也不是(? super Father),只能是Object         
 
 	}
-
+*/
 	//把方法声明成这样，编译会保证传入的e为E，引用返回的对象的也应为E
 	public E E_method(E e) {
 		//引用<Son>决定了l1的泛型（ 编译器负责检查）
