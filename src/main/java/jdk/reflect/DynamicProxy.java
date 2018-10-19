@@ -5,10 +5,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-/**
- * <P>TODO</P>
- * @author 陈冠达   2018年8月3日 上午9:58:34  
- */
 public class DynamicProxy {
 	public static void main(String s[]) {
 		//被代理的对象

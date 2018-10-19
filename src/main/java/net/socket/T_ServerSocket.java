@@ -1,26 +1,46 @@
 package net.socket;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class T_ServerSocket {
 	public static ArrayList<Socket> clients = new ArrayList<>();
+	public static CountDownLatch countDownLatch = new CountDownLatch(2);
+	public static Scanner sc = new Scanner(System.in);
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+		System.out.println("Server:  ");
 		openServer(23333);
 
 	}
 
-	public static void openServer(int port) throws IOException {
+	public static void openServer(int port) throws IOException, InterruptedException {
 		ServerSocket ss = new ServerSocket(port);
 		System.out.println("listen on  " + port);
 		while (true) {
 			final Socket client = ss.accept();
 			clients.add(client);
 			listenThisSocket(client);
+			countDownLatch.await();
+			/*	String option = sc.nextLine();
+				switch (option) {
+				case "1": {
+					client.close();
+					System.out.println("case 1");
+					break;
+				}
+				case "2": {
+					client.shutdownOutput();
+					System.out.println("case 2");
+					break;
+				}
+			
+				}*/
 		}
 	}
 
@@ -28,13 +48,27 @@ public class T_ServerSocket {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
 				try {
-					InputStream in = client.getInputStream();
 					System.out.println("begin listen to client  " + client.getPort());
 					while (true) {
-						int b = in.read();
+						int b = client.getInputStream().read();
 						System.out.println("has read byte : " + b + " from client " + client.getPort());
-						if (b == -1)
+
+						if (b == -1) {
+							int cout = 0;
+							try {
+								while (true) {
+									String w = sc.nextLine();
+									OutputStream out = client.getOutputStream();
+									out.write(8);
+									++cout;
+
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+								System.out.println(cout);
+							}
 							break;
+						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
