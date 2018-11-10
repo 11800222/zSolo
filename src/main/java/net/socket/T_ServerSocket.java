@@ -1,7 +1,6 @@
 package net.socket;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ public class T_ServerSocket {
 			final Socket client = ss.accept();
 			clients.add(client);
 			listenThisSocket(client);
+			listenThisSocket(client);
 			countDownLatch.await();
 			/*	String option = sc.nextLine();
 				switch (option) {
@@ -49,24 +49,13 @@ public class T_ServerSocket {
 			public void run() {
 				try {
 					System.out.println("begin listen to client  " + client.getPort());
+					int count = 0;
 					while (true) {
 						int b = client.getInputStream().read();
 						System.out.println("has read byte : " + b + " from client " + client.getPort());
-
+						++count;
 						if (b == -1) {
-							int cout = 0;
-							try {
-								while (true) {
-									String w = sc.nextLine();
-									OutputStream out = client.getOutputStream();
-									out.write(8);
-									++cout;
-
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-								System.out.println(cout);
-							}
+							System.out.println(count);
 							break;
 						}
 					}

@@ -13,7 +13,9 @@ public class T_Socket {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("client:  ");
-		Socket client = connect(23333);
+		//		Socket client = connect(23333);
+		Socket client = connect(25555);
+		PrintOptions(client);
 
 		InputStream inbefore = client.getInputStream();
 		listenThisSocket(client);
@@ -30,7 +32,10 @@ public class T_Socket {
 			}
 			case "3": {
 				OutputStream out = client.getOutputStream();
-				out.write(8);
+				String hello = new String("hello");
+				out.write(hello.getBytes());
+				//				out.flush();
+				//				client.close();
 				System.out.println("case 3");
 				break;
 			}
@@ -46,6 +51,11 @@ public class T_Socket {
 			}
 			}
 		}
+	}
+
+	public static void PrintOptions(Socket socket) throws Exception {
+		OutputStream out = socket.getOutputStream();
+
 	}
 
 	public static Socket connect(int port) throws Exception {
