@@ -52,8 +52,11 @@ public class IoC implements ApplicationContextAware, AopInterface {
 	@Test
 	public void ConcurrencyGetBean() {
 		try {
-			Object obj = context.getBean("RaWAopBean1");
-			System.out.println(obj.getClass());
+			//			Object obj = context.getBean("RaWAopBean1");
+			//			System.out.println(obj.getClass());
+
+			Object obj2 = context.getBean("RawBean1");
+			System.out.println(obj2.getClass());
 
 			/*	Object obj2 = context.getBean("TestBean3");
 				System.out.println(obj.getClass());*/
@@ -65,14 +68,14 @@ public class IoC implements ApplicationContextAware, AopInterface {
 	}
 
 	@Test
-	public void Aop() {
-		AopInterface ioc = context.getBean("AopBean", AopInterface.class);
-		ioc.sayhello();
+	public void prototype_Circle() {//多例循环依赖
+		Object obj = context.getBean("prototypeBean1");
 	}
 
 	@Test
-	public void prototype_Circle() {
-		Object obj = context.getBean("prototypeBean1");
+	public void Aop() {
+		AopInterface ioc = context.getBean("AopBean", AopInterface.class);
+		ioc.sayhello();
 	}
 
 	public void sayhello() {

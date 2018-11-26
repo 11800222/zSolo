@@ -33,31 +33,46 @@ public class EpollServer {
 		System.out.println("began to select");
 		while (true) {
 			String option = sc.nextLine();
-			switch (option) {//select期间：
-			case "1": {//能否修改已注册key的interest set——可以
-				SelectionKey selectionKey = theFirstClient;
-				selectionKey.interestOps(SelectionKey.OP_WRITE);
-				//				selectionKey.channel().register(selector, SelectionKey.OP_WRITE);
-				System.out.println("case 1");
-				break;
-			}
-			case "2": {//能否注册新的channel——不可以，publicKeys集合被同步
-				ServerSocketChannel testChannel = ServerSocketChannel.open();
+			try {
+				switch (option) {//select期间：
+				case "1": {//能否修改已注册key的interest set——可以
+					SelectionKey selectionKey = theFirstClient;
+					selectionKey.interestOps(SelectionKey.OP_WRITE);
+					//				selectionKey.channel().register(selector, SelectionKey.OP_WRITE);
+					System.out.println("case 1");
+					break;
+				}
+				case "2": {//能否注册新的channel——不可以，publicKeys集合被同步
+					ServerSocketChannel testChannel = ServerSocketChannel.open();
 
-				testChannel.socket().bind(new InetSocketAddress("127.0.0.1", 25566));
+					testChannel.socket().bind(new InetSocketAddress("127.0.0.1", 25566));
 
-				testChannel.configureBlocking(false);
+					testChannel.configureBlocking(false);
 
-				SelectionKey selectionKey = testChannel.register(selector, SelectionKey.OP_ACCEPT);
-				System.out.println("case 2");
-				break;
-			}
-			case "3": {//能否增删改keys集合
-				Set<SelectionKey> selectedKeys = selector.selectedKeys();
-				System.out.println(selectedKeys.remove(theFirstClient));
-				break;
-			}
+					SelectionKey selectionKey = testChannel.register(selector, SelectionKey.OP_ACCEPT);
+					System.out.println("case 2");
+					break;
+				}
+				case "3": {//能否增删改keys集合，selection期间可以remove  selectedKeys
+					Set<SelectionKey> publicKeys = selector.keys();
+					System.out.println(publicKeys.remove(serverSocketChannel)); //不可以
 
+					Set<SelectionKey> selectedKeys = selector.selectedKeys();
+					Iterator<SelectionKey> it = selectedKeys.iterator();
+					SelectionKey key = it.next();
+					it.remove();
+
+					System.out.println("case 3");
+					break;
+				}
+				case "4": {//看下selectedKeys集合 
+					Set<SelectionKey> selectedKeys = selector.selectedKeys();
+					System.out.println("case 4");
+					break;
+				}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}
@@ -100,6 +115,7 @@ public class EpollServer {
 				System.out.println("channel  " + socketChannel + " has connect!");
 
 				theFirstClient = socketChannel.register(selector, SelectionKey.OP_READ);//关注其可读
+
 			} else if (key.isReadable()) {//有客户数据可读
 				SocketChannel socketChannel = (SocketChannel) key.channel();
 				readBuff.clear();
@@ -108,7 +124,7 @@ public class EpollServer {
 				readBuff.flip();
 				System.out.println("channel " + socketChannel + "has read : " + new String(readBuff.array()));
 
-				socketChannel.register(selector, SelectionKey.OP_READ);//关注其可读 
+				//				socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);//关注其可写 
 			}
 		}
 	}

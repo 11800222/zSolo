@@ -53,18 +53,20 @@
 	      <property name="AopAopProperty" ref="RaWAopBean1" /> 
 	</bean>
  
-	<bean id="RaWBean1" class="spring.IoC">   <!-- 不是真的RawBean，因为这里所有IoC类	bean被AOP代理 -->
+	<bean id="RawBean1" class="spring.IoC" lazy-init="true">   <!-- 不是真的RawBean，因为这里所有IoC类bean都被AOP代理 -->
+	  <!-- <property name="aop" ref="RawBean2" /> -->
 	</bean>
 
-	<bean id="RawBean2" class="spring.Aop">
+	<bean id="RawBean2" class="spring.Aop" lazy-init="true">
+	    <property name="AopAopInterface" ref="RawBean1" />
 	</bean>
 
-	<!-- 构造器循环依赖 -->
+	<!-- 构造器注入,循环依赖 -->
 	<!-- <bean id="TestBean5" class="spring.IoC" > <constructor-arg index="0" ref="TestBean6" /> </bean> -->
 
 	<!-- <bean id="TestBean6" class="spring.IoC" > <constructor-arg index="0" ref="TestBean5" /> </bean> -->
 
-	<!-- prototype的setter循环依赖 -->
+	<!-- prototype的setter注入，循环依赖 -->
 	<bean id="prototypeBean1" class="spring.IoC" lazy-init="true" scope="prototype">
 		<property name="ioC" ref="prototypeBean2" />
 	</bean>
@@ -80,14 +82,14 @@
 	</bean>
 
 
-	<aop:config proxy-target-class="true">
+	<aop:config proxy-target-class="true"> 	<!-- false 使用jdk代理 -->
 		<!-- 定义切点函数 -->
 		<aop:pointcut id="pointcut" expression="execution(* spring.IoC.sayhello(..))" />
 
 		<!-- 定义通知 -->
 		<aop:aspect ref="RawBean2" order="0">
 
-			<aop:before method="Advice" pointcut-ref="pointcut" />
+			<aop:before method="Advice" pointcut-ref="pointcut" /><!-- 前置通知 -->
 
 		</aop:aspect>
 	</aop:config>

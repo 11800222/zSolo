@@ -16,6 +16,7 @@ public class DynamicProxy {
 		jdkProxyNeedInterface Proxyed = (jdkProxyNeedInterface) Proxy.newProxyInstance(beingProxyed.getClass().getClassLoader(), beingProxyed.getClass().getInterfaces(), proxyer);
 
 		Proxyed.doWhatever();
+
 	}
 }
 
@@ -49,6 +50,7 @@ class Proxyer implements InvocationHandler {
 }
 
 class BeingProxyed implements jdkProxyNeedInterface {
+
 	public void doWhatever() {
 		System.out.println("Doing Whatever and ends");
 	}
@@ -57,4 +59,5 @@ class BeingProxyed implements jdkProxyNeedInterface {
 
 interface jdkProxyNeedInterface {
 	void doWhatever();
+
 }

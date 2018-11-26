@@ -3,6 +3,15 @@ package spring;
 public class Aop {
 	Aop AopAopProperty;
 	Aop SecondAopProperty;
+	AopInterface AopAopInterface;
+
+	public AopInterface getAopAopInterface() {
+		return AopAopInterface;
+	}
+
+	public void setAopAopInterface(AopInterface aopAopInterface) {
+		AopAopInterface = aopAopInterface;
+	}
 
 	public void Advice() {
 		System.out.println("Advice procceed");
