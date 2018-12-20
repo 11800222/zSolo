@@ -2,11 +2,13 @@ package mybatis.SqlSession;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -28,6 +30,13 @@ public class T_DefaultSqlSession {
 	public void temp() throws Exception {
 		AnotherSessionUpdateAndCommmit();
 
+	}
+
+	@Test
+	public void page() throws Exception {
+		SqlSession session = sqlSessionFactory.openSession();
+		List re = session.selectList("mybatis.mappers.TdSystemLogMapper.selectAll", null, new RowBounds(2, 3));
+		System.out.println(re.size());
 	}
 
 	@Test

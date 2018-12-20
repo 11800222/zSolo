@@ -1,7 +1,10 @@
 package jdk.object;
 
+import java.io.Externalizable;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,16 +60,37 @@ class Customized_Serializable implements Serializable { //自定义的序列化�
 	char c;
 	long activationTime;
 
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {//类似于构造函数
+		ois.defaultReadObject();
+		c = ois.readChar();
+		activationTime = System.currentTimeMillis();
+		System.out.println("session deserialized");
+	}
+
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		oos.defaultWriteObject();
 		oos.writeChar(c);
 		System.out.println("session serialized");
 	}
 
-	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-		ois.defaultReadObject();
-		c = ois.readChar();
-		activationTime = System.currentTimeMillis();
-		System.out.println("session deserialized");
+}
+
+class Externalizable_class implements Externalizable {
+
+	private String name;
+	private int code;
+
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		this.name = in.readUTF();
+		this.code = in.readInt();
+
 	}
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeUTF(name);
+		out.writeInt(code);
+	}
+
 }

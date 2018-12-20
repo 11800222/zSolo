@@ -3,24 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
- <!--   <settings> 
-        <setting name="logImpl" value="STDOUT_LOGGING" />
-    </settings> -->
-  <environments default="development">
-    <environment id="development">
-      <transactionManager type="JDBC"/>
-      <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://192.168.0.180:5433/mpbmd"/>
-        <property name="username" value="mpbmd"/>
-        <property name="password" value="mpbmd123"/>
-      </dataSource>
-    </environment>
-  </environments>
-  <mappers>
-    <mapper resource="mybatis/mappers/TdSystemLogMapper.xml"/>
-  </mappers>
-  
+	<!-- <settings> <setting name="logImpl" value="STDOUT_LOGGING" /> </settings> -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<!-- <property name="url" value="jdbc:mysql://192.168.0.180:5433/mpbmd"/> <property name="username" value="mpbmd"/> <property 
+					name="password" value="mpbmd123"/> -->
+
+				<property name="url" value="jdbc:mysql://127.0.0.1:3306/mpbm?useSSL=false" />
+				<property name="username" value="root" />
+				<property name="password" value="82936200" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mybatis/mappers/TdSystemLogMapper.xml" />
+	</mappers>
+
 </configuration>
-	<!-- String Remotedburl = ("jdbc:mysql://192.168.0.180:5433/mpbm?user=mpbadm&password=mpbadm123");
-		String localdburl = ("jdbc:mysql://localhost:3306/world?user=root&password=82936200&sessionVariables=true"); -->
+<!-- String Remotedburl = ("jdbc:mysql://192.168.0.180:5433/mpbm?user=mpbadm&password=mpbadm123"); String localdburl = ("jdbc:mysql://localhost:3306/world?user=root&password=82936200&sessionVariables=true"); -->

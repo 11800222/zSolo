@@ -20,7 +20,7 @@
 		<result column="RETCODE" property="retcode" jdbcType="VARCHAR" />
 		<result column="ERRMSG" property="errmsg" jdbcType="VARCHAR" />
 	</resultMap>
-	<sql id="td_system_log_TABLE_FIELD">ID,BUSID,BUSINESS_SERIAL,BEGIN_TIME,END_TIME,DIRECTION,update,NOTES,CHANNEL,MOBILE,CUSTID,REQUEST,RESPONSE,IPADDR,RETCODE,ERRMSG</sql>
+	<sql id="td_system_log_TABLE_FIELD">ID,BUSID,BUSINESS_SERIAL,BEGIN_TIME,END_TIME,DIRECTION,NOTES,CHANNEL,MOBILE,CUSTID,REQUEST,RESPONSE,IPADDR,RETCODE,ERRMSG</sql>
 
 	<!-- <sql id="td_system_log_TABLE_INSERT_FIELD">ID,BUSID,BUSINESS_SERIAL,BEGIN_TIME,END_TIME,DIRECTION,insert,update,NOTES,CHANNEL,MOBILE,CUSTID,REQUEST,RESPONSE,IPADDR,RETCODE,ERRMSG</sql>
 
@@ -128,7 +128,7 @@
 		ID = #{id, jdbcType=VARCHAR}
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
-		select <include refid="td_system_log_TABLE_FIELD" />		
+		select *		
  		from td_system_log
 		where 1=1 
 		<if test="id != null and id != ''  " >
