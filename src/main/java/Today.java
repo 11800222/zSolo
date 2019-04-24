@@ -6,6 +6,7 @@ public class Today {
 		System.out.println(332);
 		System.out.println(33);
 		System.out.println(33);System.out.println(33);
+		System.out.println("not stage");
 	}
 
 }

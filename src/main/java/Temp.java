@@ -8,6 +8,7 @@ public class Temp {
 		System.out.println(1);
 		ss.accept();
 		System.out.println(2);
+		System.out.println("stage");
 	}
 
 }
