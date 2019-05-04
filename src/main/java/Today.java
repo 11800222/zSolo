@@ -5,6 +5,8 @@ public class Today {
     public static void main(String[] args) throws InterruptedException, IOException {
         System.out.println(IdentityStateEnum.getState(0));
         System.out.println(IdentityStateEnum.getState(1));
+        System.out.println(IdentityStateEnum.getState(1));
+        System.out.println(IdentityStateEnum.getState(1));
     }
 
 }
