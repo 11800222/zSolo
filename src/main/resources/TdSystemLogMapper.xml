@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mappers.TdSystemLogMapper">
+	<resultMap id="BaseResultMap" type="mybatis.mappers.TdSystemLog" >
+		<id column="ID" property="id" jdbcType="VARCHAR"/>
+		<result column="BUSID" property="busid" jdbcType="VARCHAR" />
+		<result column="BUSINESS_SERIAL" property="businessSerial" jdbcType="VARCHAR" />
+		<result column="BEGIN_TIME" property="beginTime" jdbcType="TIMESTAMP" />
+		<result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="DIRECTION" property="direction" jdbcType="VARCHAR" />
+	  <result column="insert" property="insert" jdbcType="TIMESTAMP" />  
+		<result column="update" property="update" jdbcType="TIMESTAMP" />
+		<result column="NOTES" property="notes" jdbcType="VARCHAR" />
+		<result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="CUSTID" property="custid" jdbcType="VARCHAR" />
+		<result column="REQUEST" property="request" jdbcType="VARCHAR" />
+		<result column="RESPONSE" property="response" jdbcType="VARCHAR" />
+		<result column="IPADDR" property="ipaddr" jdbcType="VARCHAR" />
+		<result column="RETCODE" property="retcode" jdbcType="VARCHAR" />
+		<result column="ERRMSG" property="errmsg" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="td_system_log_TABLE_FIELD">ID,BUSID,BUSINESS_SERIAL,BEGIN_TIME,END_TIME,DIRECTION,NOTES,CHANNEL,MOBILE,CUSTID,REQUEST,RESPONSE,IPADDR,RETCODE,ERRMSG</sql>
+
+	<!-- <sql id="td_system_log_TABLE_INSERT_FIELD">ID,BUSID,BUSINESS_SERIAL,BEGIN_TIME,END_TIME,DIRECTION,insert,update,NOTES,CHANNEL,MOBILE,CUSTID,REQUEST,RESPONSE,IPADDR,RETCODE,ERRMSG</sql>
+
+	<delete id="deleteByPrimaryKey" parameterType="map" >
+		delete from td_system_log
+		where 
+		ID = #{id, jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="mybatis.mappers.TdSystemLog" >
+		insert into td_system_log ( <include refid="td_system_log_TABLE_INSERT_FIELD" /> )
+		values (  #{id,jdbcType=VARCHAR } , #{busid,jdbcType=VARCHAR } , #{businessSerial,jdbcType=VARCHAR } ,
+			 #{beginTime,jdbcType=TIMESTAMP } , #{endTime,jdbcType=TIMESTAMP } , #{direction,jdbcType=VARCHAR } , #{insert,jdbcType=TIMESTAMP } ,
+			 #{update,jdbcType=TIMESTAMP } , #{notes,jdbcType=VARCHAR } , #{channel,jdbcType=VARCHAR } , #{mobile,jdbcType=VARCHAR } ,
+			 #{custid,jdbcType=VARCHAR } , #{request,jdbcType=VARCHAR } , #{response,jdbcType=VARCHAR } , #{ipaddr,jdbcType=VARCHAR } ,
+			 #{retcode,jdbcType=VARCHAR } , #{errmsg,jdbcType=VARCHAR } 
+	)
+	</insert>
+		<update id="updateByPrimaryKey" parameterType="mybatis.mappers.TdSystemLog">
+		update td_system_log 
+		<trim prefix="set" suffixOverrides=","> 
+			BUSID =#{busid,jdbcType=VARCHAR },		
+			BUSINESS_SERIAL =#{businessSerial,jdbcType=VARCHAR },		
+			BEGIN_TIME =#{beginTime,jdbcType=TIMESTAMP },		
+			END_TIME =#{endTime,jdbcType=TIMESTAMP },		
+			DIRECTION =#{direction,jdbcType=VARCHAR },		
+			insert =#{insert,jdbcType=TIMESTAMP },		
+			update =#{update,jdbcType=TIMESTAMP },		
+			NOTES =#{notes,jdbcType=VARCHAR },		
+			CHANNEL =#{channel,jdbcType=VARCHAR },		
+			MOBILE =#{mobile,jdbcType=VARCHAR },		
+			CUSTID =#{custid,jdbcType=VARCHAR },		
+			REQUEST =#{request,jdbcType=VARCHAR },		
+			RESPONSE =#{response,jdbcType=VARCHAR },		
+			IPADDR =#{ipaddr,jdbcType=VARCHAR },		
+			RETCODE =#{retcode,jdbcType=VARCHAR },		
+			ERRMSG =#{errmsg,jdbcType=VARCHAR },		
+			JPA_VERSION=JPA_VERSION+1
+			
+		</trim>
+		where 
+		ID = #{id, jdbcType=VARCHAR}
+		 
+	</update> 
+	 -->
+	<update id="updateNotNullByPrimaryKey" parameterType="mybatis.mappers.TdSystemLog">
+		update td_system_log 
+		<trim prefix="set" suffixOverrides=","> 
+		<if test="busid != null and busid != ''  " >
+			BUSID =#{busid,jdbcType=VARCHAR },
+		</if>
+		<if test="businessSerial != null and businessSerial != ''  " >
+			BUSINESS_SERIAL =#{businessSerial,jdbcType=VARCHAR },
+		</if>
+		<if test="beginTime != null and beginTime != ''  " >
+			BEGIN_TIME =#{beginTime,jdbcType=TIMESTAMP },
+		</if>
+		<if test="endTime != null and endTime != ''  " >
+			END_TIME =#{endTime,jdbcType=TIMESTAMP },
+		</if>
+		<if test="direction != null and direction != ''  " >
+			DIRECTION =#{direction,jdbcType=VARCHAR },
+		</if>
+		<if test="insert != null and insert != ''  " >
+			insert =#{insert,jdbcType=TIMESTAMP },
+		</if>
+		<if test="update != null and update != ''  " >
+			update =#{update,jdbcType=TIMESTAMP },
+		</if>
+		<if test="notes != null and notes != ''  " >
+			NOTES =#{notes,jdbcType=VARCHAR },
+		</if>
+		<if test="channel != null and channel != ''  " >
+			CHANNEL =#{channel,jdbcType=VARCHAR },
+		</if>
+		<if test="mobile != null and mobile != ''  " >
+			MOBILE =#{mobile,jdbcType=VARCHAR },
+		</if>
+		<if test="custid != null and custid != ''  " >
+			CUSTID =#{custid,jdbcType=VARCHAR },
+		</if>
+		<if test="request != null and request != ''  " >
+			REQUEST =#{request,jdbcType=VARCHAR },
+		</if>
+		<if test="response != null and response != ''  " >
+			RESPONSE =#{response,jdbcType=VARCHAR },
+		</if>
+		<if test="ipaddr != null and ipaddr != ''  " >
+			IPADDR =#{ipaddr,jdbcType=VARCHAR },
+		</if>
+		<if test="retcode != null and retcode != ''  " >
+			RETCODE =#{retcode,jdbcType=VARCHAR },
+		</if>
+		<if test="errmsg != null and errmsg != ''  " >
+			ERRMSG =#{errmsg,jdbcType=VARCHAR },
+		</if>
+		</trim>
+		where 
+		ID = #{id, jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+		select	*	
+		from td_system_log
+		where 
+		ID = #{id, jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="map" >
+		select *		
+ 		from td_system_log
+		where 1=1 
+		<if test="id != null and id != ''  " >
+			and ID = #{id,jdbcType=VARCHAR }
+		</if>
+		<if test="busid != null and busid != ''  " >
+			and BUSID = #{busid,jdbcType=VARCHAR }
+		</if>
+		<if test="businessSerial != null and businessSerial != ''  " >
+			and BUSINESS_SERIAL = #{businessSerial,jdbcType=VARCHAR }
+		</if>
+		<if test="beginTime != null and beginTime != ''  " >
+			and BEGIN_TIME = #{beginTime,jdbcType=TIMESTAMP }
+		</if>
+		<if test="endTime != null and endTime != ''  " >
+			and END_TIME = #{endTime,jdbcType=TIMESTAMP }
+		</if>
+		<if test="direction != null and direction != ''  " >
+			and DIRECTION = #{direction,jdbcType=VARCHAR }
+		</if>
+		<if test="insert != null and insert != ''  " >
+			and insert = #{insert,jdbcType=TIMESTAMP }
+		</if>
+		<if test="update != null and update != ''  " >
+			and update = #{update,jdbcType=TIMESTAMP }
+		</if>
+		<if test="notes != null and notes != ''  " >
+			and NOTES = #{notes,jdbcType=VARCHAR }
+		</if>
+		<if test="channel != null and channel != ''  " >
+			and CHANNEL = #{channel,jdbcType=VARCHAR }
+		</if>
+		<if test="mobile != null and mobile != ''  " >
+			and MOBILE = #{mobile,jdbcType=VARCHAR }
+		</if>
+		<if test="custid != null and custid != ''  " >
+			and CUSTID = #{custid,jdbcType=VARCHAR }
+		</if>
+		<if test="request != null and request != ''  " >
+			and REQUEST = #{request,jdbcType=VARCHAR }
+		</if>
+		<if test="response != null and response != ''  " >
+			and RESPONSE = #{response,jdbcType=VARCHAR }
+		</if>
+		<if test="ipaddr != null and ipaddr != ''  " >
+			and IPADDR = #{ipaddr,jdbcType=VARCHAR }
+		</if>
+		<if test="retcode != null and retcode != ''  " >
+			and RETCODE = #{retcode,jdbcType=VARCHAR }
+		</if>
+		<if test="errmsg != null and errmsg != ''  " >
+			and ERRMSG = #{errmsg,jdbcType=VARCHAR }
+		</if>
+
+		<if test="_SORT_NAME != null and _SORT_NAME != ''  " >
+			<if test="_SORT_ORDER != null and _SORT_ORDER != ''  " >
+				order by ${_SORT_NAME} ${_SORT_ORDER} 
+			</if>
+		</if>
+
+	</select>	
+	<select id="loadKeyList" resultType="long" parameterType="map" >
+		select  ID 		
+ 		from td_system_log
+		where 1=1 
+		<if test="id != null and id != ''  " >
+			and ID = #{id,jdbcType=VARCHAR }
+		</if>
+		<if test="busid != null and busid != ''  " >
+			and BUSID = #{busid,jdbcType=VARCHAR }
+		</if>
+		<if test="businessSerial != null and businessSerial != ''  " >
+			and BUSINESS_SERIAL = #{businessSerial,jdbcType=VARCHAR }
+		</if>
+		<if test="beginTime != null and beginTime != ''  " >
+			and BEGIN_TIME = #{beginTime,jdbcType=TIMESTAMP }
+		</if>
+		<if test="endTime != null and endTime != ''  " >
+			and END_TIME = #{endTime,jdbcType=TIMESTAMP }
+		</if>
+		<if test="direction != null and direction != ''  " >
+			and DIRECTION = #{direction,jdbcType=VARCHAR }
+		</if>
+		<if test="insert != null and insert != ''  " >
+			and insert = #{insert,jdbcType=TIMESTAMP }
+		</if>
+		<if test="update != null and update != ''  " >
+			and update = #{update,jdbcType=TIMESTAMP }
+		</if>
+		<if test="notes != null and notes != ''  " >
+			and NOTES = #{notes,jdbcType=VARCHAR }
+		</if>
+		<if test="channel != null and channel != ''  " >
+			and CHANNEL = #{channel,jdbcType=VARCHAR }
+		</if>
+		<if test="mobile != null and mobile != ''  " >
+			and MOBILE = #{mobile,jdbcType=VARCHAR }
+		</if>
+		<if test="custid != null and custid != ''  " >
+			and CUSTID = #{custid,jdbcType=VARCHAR }
+		</if>
+		<if test="request != null and request != ''  " >
+			and REQUEST = #{request,jdbcType=VARCHAR }
+		</if>
+		<if test="response != null and response != ''  " >
+			and RESPONSE = #{response,jdbcType=VARCHAR }
+		</if>
+		<if test="ipaddr != null and ipaddr != ''  " >
+			and IPADDR = #{ipaddr,jdbcType=VARCHAR }
+		</if>
+		<if test="retcode != null and retcode != ''  " >
+			and RETCODE = #{retcode,jdbcType=VARCHAR }
+		</if>
+		<if test="errmsg != null and errmsg != ''  " >
+			and ERRMSG = #{errmsg,jdbcType=VARCHAR }
+		</if>
+
+		<if test="_SORT_NAME != null and _SORT_NAME != ''  " >
+			<if test="_SORT_ORDER != null and _SORT_ORDER != ''  " >
+				order by ${_SORT_NAME} ${_SORT_ORDER} 
+			</if>
+		</if>
+
+	</select>
+</mapper>

@@ -26,7 +26,7 @@ public class T_SqlSessionTemplate {
 
 	@Test
 	public void TEMP() throws Exception {
-
+		transactional_Method.inner_REQUIRES_NEW_Transactional();
 	}
 
 	@Test
@@ -187,8 +187,13 @@ class Another_Transactional_Method {
 		T_SqlSessionTemplate.sqlSessionTemplate.update("mybatis.mappers.TdSystemLogMapper.updateNotNullByPrimaryKey", new TdSystemLog("1212", (new Date()).toString()));//insert、delete都是走的update
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW) //Propagation.REQUIRES_NEW传播级别
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void REQUIRES_NEW_UPDATE() {
+		T_SqlSessionTemplate.sqlSessionTemplate.update("mybatis.mappers.TdSystemLogMapper.updateNotNullByPrimaryKey", new TdSystemLog("1212", (new Date()).toString()));//insert、delete都是走的update
+	}
+
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public void SUPPORTS_UPDATE() {
 		T_SqlSessionTemplate.sqlSessionTemplate.update("mybatis.mappers.TdSystemLogMapper.updateNotNullByPrimaryKey", new TdSystemLog("1212", (new Date()).toString()));//insert、delete都是走的update
 	}
 
