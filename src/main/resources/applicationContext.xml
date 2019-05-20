@@ -67,11 +67,11 @@
 
 	<!-- prototype的setter注入，循环依赖 -->
 	<bean id="prototypeBean1" class="spring.IoC" lazy-init="true" scope="prototype">
-		<property name="ioC" ref="prototypeBean2" />
+		<property name="ioc" ref="prototypeBean2" />
 	</bean>
 
 	<bean id="prototypeBean2" class="spring.IoC" lazy-init="true" scope="prototype">
-		<property name="ioC" ref="prototypeBean1" />
+		<property name="ioc" ref="prototypeBean1" />
 	</bean>
 
 	<bean id="AopBean" class="spring.IoC" lazy-init="true">
